@@ -1,40 +1,55 @@
-<div style="padding: 20px; font-family: Arial;">
+<div class="font-family">
   <h1>{{ title }}</h1>
 
-  <div style="margin-bottom: 20px;">
-    <input 
-      type="text" 
-      [(ngModel)]="newTodo.title" 
+  <form class="task-form" (ngSubmit)="addTodo()">
+    <input
+      type="text"
+      [(ngModel)]="newTodo"
+      name="todoInput"
       placeholder="Digite uma nova tarefa"
-      style="padding: 8px; width: 300px;"
+      class="task-input"
+      [disabled]="isLoading"
+      required
+      autocomplete="off"
+      aria-label="Nova tarefa"
     />
-    <button 
-      (click)="addTodo()" 
-      style="padding: 8px 16px; margin-left: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;"
+    <button
+      type="submit"
+      class="task-button"
+      [disabled]="isLoading || !newTodo.trim()"
+      aria-label="Adicionar tarefa"
     >
-      Adicionar
+      <span *ngIf="isLoading">Carregando...</span>
+      <span *ngIf="!isLoading">Adicionar</span>
     </button>
-  </div>
+  </form>
 
   <div>
     <h2>Tarefas</h2>
-    
-    <div *ngIf="todos.length === 0" style="color: gray;">
+
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner color="warn"></mat-spinner>
+    </div>
+    <div *ngIf="!isLoading && todos.length === 0" class="no-tasks">
       Nenhuma tarefa encontrada.
     </div>
-    
-    <ul style="list-style-type: none; padding: 0;">
-      <li 
-        *ngFor="let todo of todos" 
-        style="padding: 10px; margin-bottom: 5px; border: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;"
+    <div *ngIf="errorMsg" class="error-msg">
+      {{ errorMsg }}
+    </div>
+
+    <ul class="task-list">
+      <li
+        *ngFor="let todo of todos"
+        class="task-list-item"
       >
-        <span [style.text-decoration]="todo.completed ? 'line-through' : 'none'">
+        <span [class.completed]="todo.completed">
           {{ todo.title }}
         </span>
-        
-        <button 
-          (click)="removeTodo(todo.id)" 
-          style="background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer;"
+        <button
+          (click)="removeTodo(todo.id)"
+          class="task-remove"
+          [disabled]="isLoading"
+          aria-label="Remover tarefa"
         >
           Remover
         </button>

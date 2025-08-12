@@ -1,0 +1,55 @@
+.font-family {
+  font-family: Arial;
+  padding: 20px;
+}
+
+.task-form {
+  margin-bottom: 20px;
+}
+
+.task-input {
+  padding: 8px;
+  width: 300px;
+}
+
+.task-button {
+  padding: 8px 16px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-list-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-remove {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.no-tasks {
+  color: gray;
+}
